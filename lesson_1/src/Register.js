@@ -56,6 +56,12 @@ const Register = () => {
          <form>
             <label htmlFor="username">
                Username: 
+               <span className={validName ? "valid" : "hide"}>
+                  <FontAwesomeIcon icon={faCheck} />
+               </span>
+               <span className={validName || !user ? "hide" : "invalid"}>
+                  <FontAwesomeIcon icon={faTimes} />
+               </span>
             </label>
             {/* "onFocus" is when the input field is clicked && "onBlur" is when anything other than the input field is clicked */}
             <input 
