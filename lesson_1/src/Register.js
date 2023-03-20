@@ -77,13 +77,103 @@ const Register = () => {
                onBlur={() => setUserFocus(false)}
             />
 
-            {/* "userFocus" has to be true && "user" must have at least 1 character && validName has to be false for "instructions" class to be applied */}
+            {/*
+               "userFocus" has to be true && "user" must have at least 1 character && validName has to be false for "instructions" class 
+               to be applied 
+            */}
             <p id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}> 
                <FontAwesomeIcon icon={faInfoCircle} />
                4 to 24 characters. <br/>
                Must begin with a letter. <br/>
             </p>
+
+
+            <label htmlFor="password">
+               Password: 
+               <span className={validPwd ? "valid" : "hide"}>
+                  <FontAwesomeIcon icon={faCheck} />
+               </span>
+               <span className={validPwd || !pwd ? "hide" : "invalid"}>
+                  <FontAwesomeIcon icon={faTimes} />
+               </span>
+            </label>
+            {/* "onFocus" is when the input field is clicked && "onBlur" is when anything other than the input field is clicked */}
+            <input 
+               type="password"
+               id="password"
+               onChange={(e) => setPwd(e.target.value)}
+               required
+               aria-invalid={validPwd ? "false" : "true"}
+               aria-describedby="pwdnote"
+               onFocus={() => setPwdFocus(true)}
+               onBlur={() => setPwdFocus(false)}
+            />
+
+            {/*   
+               "pwdFocus" has to be true && validPwd has to be false for "instructions" class to be applied. pwd is absent since we want to
+               keep displaying the error just when the field is focused until the pwd is 8 characters long and meets the other conditions
+               (e.g 1 special character, 1 number and 1 uppercase letter and 1 lowercase letter).
+             */}
+            <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+               <FontAwesomeIcon icon={faInfoCircle} />
+               8 to 24 characters. <br/>
+               Must include uppercase and lowercase letters, a number and a special character. <br/>
+               Allowed special characters: 
+               <span aria-label="exclamation mark">!</span>
+               <span aria-label="at symbol">@</span>
+               <span aria-label="hashtag">#</span>
+               <span aria-label="dollar sign">$</span>
+               <span aria-label="percent">%</span>
+            </p>
+
+
+            <label htmlFor="confirm_pwd">
+               Confirm Password: 
+               {/* 
+                  Not only does the password and confirm password need to match, if both of them are empty, then the error will display
+                  (which we don't want). Hence we want the matchPwd to be non-empty to display the error
+                */}
+               <span className={validMatch && matchPwd ? "valid" : "hide"}>
+                  <FontAwesomeIcon icon={faCheck} />
+               </span>
+               <span className={validMatch || !matchPwd ? "hide" : "invalid"}>
+                  <FontAwesomeIcon icon={faTimes} />
+               </span>
+            </label>
+            {/* "onFocus" is when the input field is clicked && "onBlur" is when anything other than the input field is clicked */}
+            <input 
+               type="password"
+               id="confirm_pwd"
+               onChange={(e) => setMatchPwd(e.target.value)}
+               required
+               aria-invalid={validMatch ? "false" : "true"}
+               aria-describedby="confirmnote"
+               onFocus={() => setMatchFocus(true)}
+               onBlur={() => setMatchFocus(false)}
+            />
+
+            {/*   
+               "pwdFocus" has to be true && validPwd has to be false for "instructions" class to be applied. pwd is absent since we want to
+               keep displaying the error just when the field is focused until the pwd is 8 characters long and meets the other conditions
+               (e.g 1 special character, 1 number and 1 uppercase letter and 1 lowercase letter).
+             */}
+            <p id="pwdnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+               <FontAwesomeIcon icon={faInfoCircle} />
+               Must match the first password input field.
+            </p>
+
+            <button disabled={!validName || !validPwd || !validMatch ? true : false }>
+               Sign Up
+            </button>
          </form>
+
+         <p>
+            Already Registered ? <br />
+            <span className="line">
+               {/* Put router link here */}
+               <a href="#">Sign In</a>
+            </span>
+         </p>
       </section>
    )
 }
