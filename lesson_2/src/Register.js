@@ -72,11 +72,12 @@ const Register = () => {
             {
                headers : { 'Content-Type' : 'application/json'},
                withCredentials : true
-            })
-            console.log(response.data)
-            console.log(response.accessToken)
-            console.log(JSON.stringify(response))
-            setSuccess(true)
+            }
+         )
+         console.log(response.data)
+         console.log(response.accessToken)
+         console.log(JSON.stringify(response))
+         setSuccess(true)
             // clear registration fields
       } catch (error) {
          // if error doesn't exist or error response dosen't exist, this errMsg will be set
@@ -89,7 +90,7 @@ const Register = () => {
          else{
             setErrMsg('Registration Failed')
          }
-         errRef.current.focus() // focus current input field that has error
+         errRef.current.focus() // focus error message p tag
       }
    }
 
@@ -104,6 +105,7 @@ const Register = () => {
             </section>
          ):(
             <section>
+               {/* aria-live="assertive" uses the screen reader to read the text here as soon as it shows/pops up */}
                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                <h1>Register</h1>
                <form onSubmit={handleSubmit}>
@@ -134,7 +136,7 @@ const Register = () => {
                      "userFocus" has to be true && "user" must have at least 1 character && validName has to be false for "instructions" class 
                      to be applied 
                   */}
-                  <p id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}> 
+                  <p id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}>
                      <FontAwesomeIcon icon={faInfoCircle} />
                      4 to 24 characters. <br/>
                      Must begin with a letter. <br/>
