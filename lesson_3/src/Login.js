@@ -1,10 +1,16 @@
-import { useRef, useState, useEffect, useContext } from 'react'
-import AuthContext from './context/AuthProvider'
+// removed "useContext" and "AuthContext" in favor of the custom "useAuth"
+/*, useContext */
+import { useRef, useState, useEffect } from 'react'
+// import AuthContext from './context/AuthProvider'
 import axios from './api/axios'
+import useAuth from './hooks/useAuth'
 const LOGIN_URL = '/auth'
 
 const Login = () => {
-   const { setAuth } = useContext(AuthContext) //importing setAuth from AuthContext.
+   // removed "useContext" and "AuthContext" and this in favor of the custom "useAuth"
+   // const { setAuth } = useContext(AuthContext) //importing setAuth from AuthContext.
+   const { setAuth } = useAuth()
+
    const userRef = useRef()
    const errRef = useRef()
 
