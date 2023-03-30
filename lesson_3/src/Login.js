@@ -2,8 +2,9 @@
 /*, useContext */
 import { useRef, useState, useEffect } from 'react'
 // import AuthContext from './context/AuthProvider'
-import axios from './api/axios'
 import useAuth from './hooks/useAuth'
+import axios from './api/axios'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 const LOGIN_URL = '/auth'
 
 const Login = () => {
@@ -11,13 +12,19 @@ const Login = () => {
    // const { setAuth } = useContext(AuthContext) //importing setAuth from AuthContext.
    const { setAuth } = useAuth()
 
+   const navigate = useNavigate()
+   const location = useLocation()
+   // remember that we passed "state={{ from:location }}" and "replace" in RequireAuth Middleware. If exists then store in variable
+   // "location", else store "/".
+   const from = location.state?.from?.pathname || "/"
+
    const userRef = useRef()
    const errRef = useRef()
 
    const [user, setUser] = useState('')
    const [pwd, setPwd] = useState('')
    const [errMsg, setErrMsg] = useState('')
-   const [success, setSuccess] = useState(false)
+   // const [success, setSuccess] = useState(false) // not needed anymore due to the line "navigate(from, {replace: true})"
 
    useEffect(() => {
       userRef.current.focus()
@@ -51,7 +58,10 @@ const Login = () => {
          // Clear Fields after submit
          setUser('')
          setPwd('')
-         setSuccess(true)
+         // redirect to the "from" page. If it was passed a value from <RequireAuth>(i.e "/login" or "/register" or "/linkpage")
+         // go there. Else, just go to the default which is "/"
+         navigate(from, {replace: true})
+         // setSuccess(true) // not needed anymore due to the above line
       } catch (error) {
          if(!error?.response){
             setErrMsg('No Server Errors')
@@ -72,15 +82,18 @@ const Login = () => {
 
    return(
       <>
-         {success ? (
-            <section>
-               <h1>You are logged in!</h1>
-               <br />
-               <p>
-                  <a href="#">Go to home</a>
-               </p>
-            </section>
-         ):(
+         {
+            // not needed anymore due to the line "navigate(from, {replace: true})"
+            // success ? (
+            //    <section>
+            //       <h1>You are logged in!</h1>
+            //       <br />
+            //       <p>
+            //          <a href="#">Go to home</a>
+            //       </p>
+            //    </section>
+            // ):
+         (
             <section>
                {/* aria-live="assertive" uses the screen reader to read the text here as soon as it shows/pops up */}
                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
