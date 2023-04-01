@@ -10,7 +10,7 @@ const LOGIN_URL = '/auth'
 const Login = () => {
    // removed "useContext" and "AuthContext" and this in favor of the custom "useAuth"
    // const { setAuth } = useContext(AuthContext) //importing setAuth from AuthContext.
-   const { setAuth } = useAuth()
+   const { setAuth } = useAuth() // cleaner way of importing setAuth from AuthContext.
 
    const navigate = useNavigate()
    const location = useLocation()
