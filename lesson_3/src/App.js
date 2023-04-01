@@ -23,11 +23,18 @@ function App() {
           <Route path="linkpage" element={<LinkPage />} />
           <Route path="unauthorized" element={<Unauthorized />} />
 
-          {/* We Want to Protect These Routes */}
-          <Route element={<RequireAuth />}>
+          {/* We Want to Protect These Routes. AllowedRoles are just the role codes that are allowed. Logic in the 
+              the "RequireAuth" will check it and redirect the logged-in user accordingly. */}
+          <Route element={<RequireAuth allowedRoles={[2001]} />}>
             <Route path="/" element={<Home />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[1984]} />}>
             <Route path="editor" element={<Editor />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[5150]} />}>
             <Route path="admin" element={<Admin />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[1984, 5150]} />}>
             <Route path="lounge" element={<Lounge />} />
           </Route>
 
