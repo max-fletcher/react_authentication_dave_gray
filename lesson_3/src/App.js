@@ -11,6 +11,12 @@ import LinkPage from './LinkPage'
 import { Routes, Route } from 'react-router-dom'
 import RequireAuth from './RequireAuth' // custom hook for access control/restriction
 
+const ROLES = {
+  'User' : 2001,
+  'Editor' : 1984,
+  'Admin' : 5150
+}
+
 function App() {
   
   return (
@@ -25,16 +31,16 @@ function App() {
 
           {/* We Want to Protect These Routes. AllowedRoles are just the role codes that are allowed. Logic in the 
               the "RequireAuth" will check it and redirect the logged-in user accordingly. */}
-          <Route element={<RequireAuth allowedRoles={[2001]} />}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
             <Route path="/" element={<Home />} />
           </Route>
-          <Route element={<RequireAuth allowedRoles={[1984]} />}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
             <Route path="editor" element={<Editor />} />
           </Route>
-          <Route element={<RequireAuth allowedRoles={[5150]} />}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="admin" element={<Admin />} />
           </Route>
-          <Route element={<RequireAuth allowedRoles={[1984, 5150]} />}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}>
             <Route path="lounge" element={<Lounge />} />
           </Route>
 

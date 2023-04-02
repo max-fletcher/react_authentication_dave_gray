@@ -1,7 +1,7 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "./hooks/useAuth";
 
-const RequireAuth = (allowedRoles) => { // has a prop called "allowedRoles". May or may not contains 3 roles("admin", "user" & "editor")
+const RequireAuth = ({ allowedRoles }) => { // has a prop called "allowedRoles". May or may not contains 3 roles("admin", "user" & "editor")
    const { auth } = useAuth()
    const location = useLocation() // get current location before entering the protected component so back button works as expected(see below)
 
