@@ -58,7 +58,7 @@ const Login = () => {
          // Clear Fields after submit
          setUser('')
          setPwd('')
-         // redirect to the "from" page. If it was passed a value from <RequireAuth>(i.e "/login" or "/register" or "/linkpage")
+         // redirect to the "from" page. If it was passed a value from <RequireAuth>(i.e "/admin" or "/editor" etc.)
          // go there. Else, just go to the default which is "/"
          navigate(from, {replace: true})
          // setSuccess(true) // not needed anymore due to the above line

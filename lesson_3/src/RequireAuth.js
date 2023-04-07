@@ -9,9 +9,12 @@ const RequireAuth = ({ allowedRoles }) => { // has a prop called "allowedRoles".
       // The "state={{ from:location }}" is because we are sending the "from" address to the "<Login>" component so that we can
       // redirect to the page he wished to access before he was redirected to login. So, if say the flow is supposed
       // to be LinkPage->Admin->Login(because the user clicked/visited "admin" from "linkpage"), it is sending a string "/admin"(i.e Admin)
-      // as data in the "from" state to the login component. There, if "from" exists, we access it using 
+      // as data in the "from" state to the login component. There, if "from" exists, we access it using
       // "const from = location.state?.from?.pathname" and hence, we can redirect the user to that location after login.
 
+      // linkpage->admin->login
+
+      // In short, "replace" forcefully takes you to a URL.
       // The "replace" is because the user didn't navigate to the login. He was forcefully sent there so we are replacing the
       // protected URL (say "/" or "/admin" or "/editor" etc.) with the location where we came from (i.e "/login" or
       // "/register" etc. using "state={{ from:location }}" and "replace"). So if the flow is supposed to be
