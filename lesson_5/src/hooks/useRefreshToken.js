@@ -4,7 +4,7 @@ import useAuth from "./useAuth"
 // this component sends API requests to refreshed the "acessToken" using the "refreshToken". It is used to get a new token using interceptors in "axiosPrivate"
 
 const useRefreshToken = () => {
-   const { setAuth } = useAuth()
+   const { setAuth } = useAuth() // importing from custom hook. We are only importing "setAuth" and not "auth" since we only wanna write over it not read the data
 
    const refresh = async () => {
       const response = await axios.get('/refresh', { withCredentials: true }) // withCredentials allows us to send cookies with the request
