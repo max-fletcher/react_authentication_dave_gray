@@ -12,7 +12,10 @@ const useRefreshToken = () => {
       setAuth(prev => { //remember that "setState" can take a function as argument with which you can return something which will be set as new value of that state
          console.log(JSON.stringify(prev)) // see the response as a json string
          console.log(response.data.accessToken) // see the response accessToken
-         return {...prev, accessToken: response.data.accessToken} //replace accessToken with new accessToken
+         return {...prev,
+                  roles: response.data.roles, // add a roles object to the "auth" context
+                  accessToken: response.data.accessToken //replace accessToken with new accessToken. Also added roles
+               }
       })
 
       return response.data.accessToken

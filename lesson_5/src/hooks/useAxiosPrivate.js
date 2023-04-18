@@ -50,7 +50,8 @@ const useAxiosPrivate = () => {
          axiosPrivate.interceptors.request.eject(requestIntercept)
          axiosPrivate.interceptors.response.eject(responseIntercept)
       }
-   },[auth, refresh])
+   },[auth, refresh]) // using "auth" context and "refresh" function as dependency array. Refresh is included so we can access it inside useEffect
+                      // and "auth" is here so it re-runs if "auth" context(which is an object) changes which triggers re-render of this component.
 
    // return an instance of axios with interceptors called "axiosPrivate"
    return axiosPrivate;

@@ -13,8 +13,9 @@ const PersistLogin = () => {
    const refresh = useRefreshToken() // create an instance of "useRefreshToken()"
    const { auth } = useAuth() // importing from custom hook. We are only importing "auth" and not "setAuth" since we only wanna read the data not write over it
 
-   // run "useEffect" so that the "refreshToken" is used to fetch the 
+   // run "useEffect" on mounting this component.This is to make sure that "accessToken" exists. If not then the "verifyRefreshToken" function is ran below.
    useEffect(() => {
+      // this is just a declaration. This functon is ran below based on if accessToken exists in "auth" context
       const verifyRefreshToken = async() => {
          try {
             await refresh()
