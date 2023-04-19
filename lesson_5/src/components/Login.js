@@ -10,7 +10,7 @@ const LOGIN_URL = '/auth'
 const Login = () => {
    // removed "useContext" and "AuthContext" and this in favor of the custom "useAuth"
    // const { setAuth } = useContext(AuthContext) //importing setAuth from AuthContext.
-   const { setAuth } = useAuth() // cleaner way of importing setAuth from AuthContext.
+   const { setAuth, persist, setPersist } = useAuth() // cleaner way of importing setAuth from AuthContext.
 
    const navigate = useNavigate()
    const location = useLocation()
@@ -80,6 +80,16 @@ const Login = () => {
       }
    }
 
+   // function for changing persist state
+   const togglePersist = () => {
+      setPersist(prev => !prev)
+   }
+
+   // store "persist" in localStorage when "persist" changes
+   useEffect(() => {
+      localStorage.setItem("persist", persist)
+   }, [])
+
    return(
       <>
          {
@@ -120,6 +130,10 @@ const Login = () => {
                   />
 
                   <button>Sign In</button>
+                  <div className="persistCheck">
+                     <input type="checkbox" id="persist" onChange={togglePersist} checked={persist} />
+                     <label htmlFor="persist">Remember Me</label>
+                  </div>
                </form>
 
                <p>

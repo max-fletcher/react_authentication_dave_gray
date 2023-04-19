@@ -11,7 +11,7 @@ const PersistLogin = () => {
 
    const [isLoading, setIsLoading] = useState(true)
    const refresh = useRefreshToken() // create an instance of "useRefreshToken()"
-   const { auth } = useAuth() // importing from custom hook. We are only importing "auth" and not "setAuth" since we only wanna read the data not write over it
+   const { auth, persist } = useAuth() // importing from custom hook. We are only importing "auth" and not "setAuth" since we only wanna read the data not write over it
 
    // run "useEffect" on mounting this component.This is to make sure that "accessToken" exists. If not then the "verifyRefreshToken" function is ran below.
    useEffect(() => {
@@ -24,10 +24,10 @@ const PersistLogin = () => {
          } finally{
             setIsLoading(false) // this will run either way(regardless of whether try or catch was run)
          }
-
-         // only run the "verifyRefreshToken()" function when there is no "accessToken". Else, just set the "isLoading state to false"
-         !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false)
       }
+
+      // only run the "verifyRefreshToken()" function when there is no "accessToken". Else, just set the "isLoading state to false"
+      !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false)
    }, [])
 
    // this block is just for checking what is going on above
@@ -39,8 +39,11 @@ const PersistLogin = () => {
    return (
       <>
          {
-            // use a "loader" or "spinner" instead of "<p>Loading...</p>"
-            isLoading ? <p>Loading...</p> : <Outlet />
+            // if "persist" is false, go straight to <Outlet />. If its true, then check "isLoading". If its false, go to <Outlet /> else show "loading"
+            !persist ? 
+               <Outlet /> :
+                  // use a "loader" or "spinner" instead of "<p>Loading...</p>"
+                  isLoading ? <p>Loading...</p> : <Outlet />
          }
       </>
    )
