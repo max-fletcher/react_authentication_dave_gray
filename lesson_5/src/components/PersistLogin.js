@@ -15,6 +15,8 @@ const PersistLogin = () => {
 
    // run "useEffect" on mounting this component.This is to make sure that "accessToken" exists. If not then the "verifyRefreshToken" function is ran below.
    useEffect(() => {
+      let isMounted = true // may not be needed since new react version runs useEffect only after a component is mounted
+
       // this is just a declaration. This functon is ran below based on if accessToken exists in "auth" context
       const verifyRefreshToken = async() => {
          try {
@@ -22,12 +24,16 @@ const PersistLogin = () => {
          } catch (error) {
             console.log(error)
          } finally{
-            setIsLoading(false) // this will run either way(regardless of whether try or catch was run)
+            isMounted && setIsLoading(false) // this will run either way(regardless of whether try or catch was run). "isMounted" is to make sure setLoading is not run 
+                                          // before the component is mounted. May not be needed since new react version runs useEffect only after a component is mounted
          }
       }
 
       // only run the "verifyRefreshToken()" function when there is no "accessToken". Else, just set the "isLoading state to false"
       !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false)
+
+      return () => isMounted = false   // "isMounted" is to make sure setLoading is not run before the component is mounted.
+                                       // May not be needed since new react version runs useEffect only after a component is mounted
    }, [])
 
    // this block is just for checking what is going on above

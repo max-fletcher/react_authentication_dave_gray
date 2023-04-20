@@ -88,7 +88,7 @@ const Login = () => {
    // store "persist" in localStorage when "persist" changes
    useEffect(() => {
       localStorage.setItem("persist", persist)
-   }, [])
+   }, [persist])
 
    return(
       <>
