@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
 const useLocalStorage = (key, initValue) => {
-   const [value, setValue] = useState(JSON.stringify(localStorage.getItem(key)) || initValue); // set "initValue" as "value"(state) if "key" is not found in localStorage
+   const [value, setValue] = useState(JSON.parse(localStorage.getItem(key)) || initValue); // set "initValue" as "value"(state) if "key" is not found in localStorage
 
    useEffect(() => {
       localStorage.setItem(key, JSON.stringify(value))
