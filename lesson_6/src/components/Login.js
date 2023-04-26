@@ -6,6 +6,7 @@ import useAuth from '../hooks/useAuth'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from '../api/axios'
 import useLocalStorage from '../hooks/useLocalStorage'
+import useInput from '../hooks/useInput'
 const LOGIN_URL = '/auth'
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
    const { setAuth, persist, setPersist } = useAuth() // cleaner way of importing setAuth from AuthContext.
 
    const navigate = useNavigate()
-   const location = useLocation()
+   const location = useLocation() // get current location URL
    // remember that we passed "state={{ from:location }}" and "replace" in RequireAuth Middleware. If exists then store in variable
    // "location", else store "/".
    const from = location.state?.from?.pathname || "/"
@@ -22,7 +23,14 @@ const Login = () => {
    const userRef = useRef()
    const errRef = useRef()
 
-   const [user, setUser] = useLocalStorage('user', '') //useState('') // replacing "useState" with "useLocalStorage" so value is stored in localStorage.
+   // replacing "useState" with "useLocalStorage" so value is stored in localStorage.
+   // The useLocalStorage accepts 2 params; "key" and "initValue".
+   // We are passing those 2 params so that "key='user'" and "initValue=''".
+   // const [user, setUser] = useLocalStorage('user', '') //useState('')
+
+   // replaced above line with this. Its a hook that uses "useLocalStorage" inside it(hook inside another hook).
+   const [user, resetUser, userAttribute] = useInput('user', '') //useState('')
+
    const [pwd, setPwd] = useState('')
    const [errMsg, setErrMsg] = useState('')
    // const [success, setSuccess] = useState(false) // not needed anymore due to the line "navigate(from, {replace: true})"
@@ -57,7 +65,9 @@ const Login = () => {
          setAuth({user, pwd, roles, accessToken}) // saving data in context API
 
          // Clear Fields after submit
-         setUser('')
+         // setUser('')
+         resetUser()
+
          setPwd('')
          // redirect to the "from" page. If it was passed a value from <RequireAuth>(i.e "/admin" or "/editor")
          // go there. Else, just go to the default which is "/"
@@ -111,13 +121,17 @@ const Login = () => {
                <h1>Sign In</h1>
                <form onSubmit={handleSubmit}>
                   <label htmlFor="username">Username:</label>
-                  <input 
+                  <input
                      type="text"
                      id="username"
                      ref={userRef}
                      autoComplete="off"
-                     onChange={(e) => setUser(e.target.value)}
-                     value={user}
+                     // value={user}
+                     // onChange={(e) => setUser(e.target.value)}
+
+                     // spreads an object "userAttribute" that comes from useInput hook. Contains "value" and an "onChange" function
+                     // that can replace the "value={user}" and "onChange={(e) => setuser(e.target.value)}"(2 lines above)
+                     {...userAttribute} 
                      required
                   />
 
