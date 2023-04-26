@@ -1,7 +1,8 @@
 import useLocalStorage from './useLocalStorage'
 
 const useInput = (key, initValue) => {
-   // "useLocalStorage" hook is now bound to "value" and "setValue"
+
+   // functions("value" and "setValue") returned from "useLocalStorage" hook is now bound to "value" and "setValue"
    const [value, setValue] = useLocalStorage(key, initValue)
 
    const reset = () => setValue(initValue)

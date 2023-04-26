@@ -5,14 +5,16 @@ import { useRef, useState, useEffect } from 'react'
 import useAuth from '../hooks/useAuth'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from '../api/axios'
-import useLocalStorage from '../hooks/useLocalStorage'
+// import useLocalStorage from '../hooks/useLocalStorage' // hook below uses "useLocalStorage" so not needed here anymore
 import useInput from '../hooks/useInput'
+import useToggle from '../hooks/useToggle'
 const LOGIN_URL = '/auth'
 
 const Login = () => {
    // removed "useContext" and "AuthContext" and this in favor of the custom "useAuth"
    // const { setAuth } = useContext(AuthContext) //importing setAuth from AuthContext.
-   const { setAuth, persist, setPersist } = useAuth() // cleaner way of importing setAuth from AuthContext.
+   // We are removing "persist" and "setPersist" from authContext and moving them to "useToggle" hook
+   const { setAuth /* , persist, setPersist */ } = useAuth() // cleaner way of importing setAuth from AuthContext.
 
    const navigate = useNavigate()
    const location = useLocation() // get current location URL
@@ -30,10 +32,10 @@ const Login = () => {
 
    // replaced above line with this. Its a hook that uses "useLocalStorage" inside it(hook inside another hook).
    const [user, resetUser, userAttribute] = useInput('user', '') //useState('')
-
    const [pwd, setPwd] = useState('')
    const [errMsg, setErrMsg] = useState('')
    // const [success, setSuccess] = useState(false) // not needed anymore due to the line "navigate(from, {replace: true})"
+   const [check, toggleCheck] = useToggle('persist', false)
 
    useEffect(() => {
       userRef.current.focus()
@@ -91,15 +93,17 @@ const Login = () => {
       }
    }
 
-   // function for changing persist state
-   const togglePersist = () => {
-      setPersist(prev => !prev)
-   }
+   // 2 BLOCKS BELOW NOT NEEDED ANYMORE SINCE WE ARE USING "useToggle" HOOK AND NOT authContext ANYMORE
 
-   // store "persist" in localStorage when "persist" changes
-   useEffect(() => {
-      localStorage.setItem("persist", persist)
-   }, [persist])
+   // // function for changing persist state
+   // const togglePersist = () => {
+   //    setPersist(prev => !prev)
+   // }
+
+   // // store "persist" in localStorage when "persist" changes
+   // useEffect(() => {
+   //    localStorage.setItem("persist", persist)
+   // }, [persist])
 
    return(
       <>
@@ -146,7 +150,9 @@ const Login = () => {
 
                   <button>Sign In</button>
                   <div className="persistCheck">
-                     <input type="checkbox" id="persist" onChange={togglePersist} checked={persist} />
+                     {/* <input type="checkbox" id="persist" onChange={togglePersist} checked={persist} /> */}
+                     {/* LINE ABOVE REPLACED WITH LINE BELOW SINCE WE ARE USING "useToggle" HOOK AND NOT authContext ANYMORE */}
+                     <input type="checkbox" id="persist" onChange={toggleCheck} checked={check} />
                      <label htmlFor="persist">Remember Me</label>
                   </div>
                </form>

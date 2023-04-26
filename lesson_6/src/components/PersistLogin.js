@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import { useState, useEffect } from "react"
 import useRefreshToken from "../hooks/useRefreshToken"
 import useAuth from "../hooks/useAuth"
+import useLocalStorage from "../hooks/useLocalStorage"
 
 
 // This protected route is used to re-run "useRefreshToken" hook if the user doesn't have an accessToken so the user is issued a new accessToken
@@ -11,7 +12,10 @@ const PersistLogin = () => {
 
    const [isLoading, setIsLoading] = useState(true)
    const refresh = useRefreshToken() // create an instance of "useRefreshToken()"
-   const { auth, persist } = useAuth() // importing from custom hook. We are only importing "auth" and not "setAuth" since we only wanna read the data not write over it
+   // const { auth /* , persist */ } = useAuth() // importing from custom hook. We are only importing "auth" and not "setAuth" since we only wanna read the data not write over it
+   // LINE ABOVE REPLACED WITH 2 LINE BELOW SINCE WE ARE USING "useToggle" HOOK AND NOT "persist" FROM authContext ANYMORE
+   const { auth } = useAuth() // importing from custom hook. We are only importing "auth" and not "setAuth" since we only wanna read the data not write over it
+   const [persist] = useLocalStorage('persist', false)
 
    // run "useEffect" on mounting this component.This is to make sure that "accessToken" exists. If not then the "verifyRefreshToken" function is ran below.
    useEffect(() => {
