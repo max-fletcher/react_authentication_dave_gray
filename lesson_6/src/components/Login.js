@@ -64,7 +64,7 @@ const Login = () => {
          // console.log(JSON.stringify(response));
          const accessToken = response?.data?.accessToken
          const roles = response?.data?.roles
-         setAuth({user, pwd, roles, accessToken}) // saving data in context API
+         setAuth({user, /* pwd, */ roles, accessToken}) // saving data in context API // Removed "pwd"(lesson 7) since it can be hacked
 
          // Clear Fields after submit
          // setUser('')

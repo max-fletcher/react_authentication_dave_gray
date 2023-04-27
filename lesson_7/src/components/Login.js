@@ -63,8 +63,12 @@ const Login = () => {
          console.log(response?.data);
          // console.log(JSON.stringify(response));
          const accessToken = response?.data?.accessToken
-         const roles = response?.data?.roles
-         setAuth({user, pwd, roles, accessToken}) // saving data in context API
+         // const roles = response?.data?.roles
+         // setAuth({user, pwd, roles, accessToken}) // saving data in context API
+
+         // Removed above 2 lines with line below since we don't need roles. It was initially passed from backend but accessToken already contains
+         // those roles so we removed them
+         setAuth({user, pwd, accessToken}) // saving data in context API
 
          // Clear Fields after submit
          // setUser('')

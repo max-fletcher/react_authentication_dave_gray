@@ -26,7 +26,10 @@ const Users = () => {
             // signal:controller.signal is for terminating. Also, axiosPrivate is used here
             const response = await axiosPrivate.get('/users', { signal: controller.signal });
             console.log(response.data);
-            isMounted && setUsers(response.data); // if "isMounted" is true, call "setUsers" to store "response.data" in users
+            const userNames = response.data.map(user => user.username) // added this line to filter username only from the array of user data
+            // isMounted && setUsers(response.data); // if "isMounted" is true, call "setUsers" to store "response.data" in users
+            // Replaced above line with line below since saving all data(accessToken, refreshToken and password) in state is a big security issue
+            isMounted && setUsers(userNames); // if "isMounted" is true, call "setUsers" to store "response.data" in users
          } catch (error) {
             console.log(error);
             // 2nd and 3rd param uses the same logic as "RequireAuth" component(see there to understand how it works). Apart from
@@ -60,7 +63,7 @@ const Users = () => {
                         users.map((user, index) => {
                            return(
                               <>
-                                 <li key={index}>{user?.username}</li>
+                                 <li key={index}>{user}</li>
                               </>
                            )
                         })
