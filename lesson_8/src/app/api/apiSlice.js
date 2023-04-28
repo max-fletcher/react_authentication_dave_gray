@@ -1,6 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials, logOut } from '../../features/auth/authSlice' // importing 'setCredentials' and 'logout' reducer
 
+// The purpose of this is to declare the base query and export it as an RTK Query. We weil inject the endpoints in .
+// It uses an apiSlice called authSlice to re-run "accessToken" refetch so we have a valid "accessToken" if "refreshToken" is a-ok.
+// It will do that by using the reducer actions/methods from authSlice and use/dispatch them to make API calls.
+
 // works like axios request with options
 const baseQuery = fetchBaseQuery({
    baseUrl: 'http://localhost:3500',
