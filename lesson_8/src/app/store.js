@@ -2,7 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice";
 import authReducer from '../features/auth/authSlice'
 
-// the reducer object inside will contain all the reducers we will use
+// the reducer object inside will contain all the reducers we will use. We will wrap the <App /> component with this store
+// so our App can access these store reducers from all places. Else, it will not work.
+
+// the reducer object inside will contain all the reducers we will use.
 export const store = configureStore({
    reducer: {
       // posts: postsReducer,
