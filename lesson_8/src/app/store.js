@@ -1,5 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./api/apiSlice";
+import { configureStore } from "@reduxjs/toolkit"
+import { apiSlice } from "./api/apiSlice"
 import authReducer from '../features/auth/authSlice'
 
 // the reducer object inside will contain all the reducers we will use. We will wrap the <App /> component with this store
@@ -20,5 +20,6 @@ export const store = configureStore({
       auth: authReducer
    },
    // This middleware is required for use with RTK QUERY with an "apiSlice". It manages cache lifetimes and expiration info.
-   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware), devtools: true
+   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
+   devtools: true
 })

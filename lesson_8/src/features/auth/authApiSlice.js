@@ -13,3 +13,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
    })
 })
+
+// Exporting builder mutations. The hooks exported inside are generated automatically with prefix "use" and postfix "Mutation" and name
+// sandwitched between
+export const {
+   useLoginMutation
+} = authApiSlice

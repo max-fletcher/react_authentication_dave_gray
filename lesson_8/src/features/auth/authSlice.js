@@ -21,7 +21,8 @@ const authSlice = createSlice({
 // exporting the reducers
 export const { setCredentials, logOut } = authSlice.actions
 
-// exporting the slice
+// exporting the slice. It will be imported with the name "authReducer"(since this is the default export so it can be named whatever you import it as)
+// in store.js.
 export default authSlice.reducer
 
 // Custom selectors
