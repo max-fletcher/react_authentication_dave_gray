@@ -27,7 +27,7 @@ const RequireAuth = ({ allowedRoles }) => { // has a prop called "allowedRoles".
       // "/register" etc. using "state={{ from:location }}" and "replace"). So if the flow is supposed to be
       // LinkPage->Home->Login(because the user clicked/visited "home" from "linkpage"), but since you are now in Login,
       // pressing back takes you back to Home which bounces you back to Login, so we need to replace the history of the router so
-      // it looks like this LinkPage->Login. That is the purpose of "replace"(i.e it forcefully takes you to a URL without
+      // it looks like this LinkPage->Home. That is the purpose of "replace"(i.e it forcefully takes you to a URL without
       // pushing a new value to the history stack. It replaces the current/top value of the history stack). Hence, the back 
       // if its not inside any protected route button will properly send you to the previous route (i.e to "/linkpage" since 
       // it thinks we are in the "/home" page not in "/login")

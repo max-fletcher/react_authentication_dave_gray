@@ -60,33 +60,31 @@ const Login = () => {
       <section className="login">
          <p ref={errRef} className={errMsg ? "errMsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
 
-            <h1>Employee Login</h1>
+         <h1>Employee Login</h1>
 
-            <form onSubmit={handleSubmit}>
-               <label htmlFor="username"> Username: </label>
-               <input 
-                  type="text"
-                  id="username"
-                  ref={userRef}
-                  value={user}
-                  onChange={handleUserInput}
-                  autoComplete="off"
-                  required
-               />
-            </form>
+         <form onSubmit={handleSubmit}>
+            <label htmlFor="username"> Username: </label>
+            <input 
+               type="text"
+               id="username"
+               ref={userRef}
+               value={user}
+               onChange={handleUserInput}
+               autoComplete="off"
+               required
+            />
 
-            <form onSubmit={handleSubmit}>
-               <label htmlFor="password"> Password: </label>
-               <input 
-                  type="password"
-                  id="password"
-                  value={pwd}
-                  onChange={handlePwdInput}
-                  required
-               />
+            <label htmlFor="password"> Password: </label>
+            <input 
+               type="password"
+               id="password"
+               value={pwd}
+               onChange={handlePwdInput}
+               required
+            />
 
-               <button>Sign In</button>
-            </form>
+            <button>Sign In</button>
+         </form>
       </section>
    )
 
