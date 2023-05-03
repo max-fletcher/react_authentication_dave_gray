@@ -13,7 +13,7 @@ const Login = () => {
    const [errMsg, setErrMsg] = useState('')
    const navigate = useNavigate()
 
-   const [login, { isLoading }] = useLoginMutation //destructuring "login" mutation and "isLoading" state(which can be used to show loader)
+   const [login, { isLoading }] = useLoginMutation() //destructuring "login" mutation and "isLoading" state(which can be used to show loader)
    const dispatch = useDispatch()
 
    useEffect(() => {
@@ -30,14 +30,15 @@ const Login = () => {
          // use login mutation to fetch user data. Remember, unwrap is provided by redux-toolkit that allows us to use try-catch and respond accordingly
          const userData = await login({ user, pwd }).unwrap()
          console.log('userData', userData);
-         // "userData" only returns an "accessToken" so we use spread operator to unwrap the object to get the "accessToken" but pass the 
+         // "userData" only returns an "accessToken" so we use spread operator to unwrap the object to get the "accessToken" but pass the
          // "accessToken" and the "user" to the "setCredentials" method
          dispatch(setCredentials({ ...userData, user }))
          setUser('') // clear "user" field
          setPwd('') // clear "password" field
          navigate('/welcome') // navigate to "/welcome" url
       } catch (error) {
-         if(!error?.originalStatus ){
+         console.log(error)
+         if (error?.originalStatus){
             setErrMsg('No Server Response')
          }
          else if(error.originalStatus === 400){

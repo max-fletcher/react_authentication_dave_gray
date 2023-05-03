@@ -4,12 +4,12 @@ const Public = () => {
 
    const content = (
       <section>
-         <header>
+         <header className="public">
             <h1>Welcome to Repair Store</h1>
          </header>
          <main>
             <p>Located in some imaginary place in downtown, Repair store provides...wel... repairs(duh!)</p>
-            <p>$nbsp;</p>
+            <p>&nbsp;</p>
             <address>
                Repair Store<br />
                555 Foo Drive<br />
