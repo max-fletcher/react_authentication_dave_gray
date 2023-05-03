@@ -11,9 +11,9 @@ const Welcome = () => {
 
       const content = (
          <section className="welcome">
-               <h1>{welcome}</h1>
-               <p>Token: {tokenAbbr}</p>
-               <p><Link to="/userslist">Go to the Users List</Link></p>
+            <h1>{welcome}</h1>
+            <p>Token: {tokenAbbr}</p>
+            <p><Link to="/userslist">Go to the Users List</Link></p>
          </section>
       )
 
