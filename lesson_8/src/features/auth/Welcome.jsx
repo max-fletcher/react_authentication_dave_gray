@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux"
-import { selectCurrentUser, selectCurrentToken } from "./authSlice"
+import { useSelector } from "react-redux" //useSelector that can be used to call selector(selectors fetch and show data only not mutate them)
+import { selectCurrentUser, selectCurrentToken } from "./authSlice" // custom selectors
 import { Link } from "react-router-dom"
 
 const Welcome = () => {

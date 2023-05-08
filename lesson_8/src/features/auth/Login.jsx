@@ -16,7 +16,7 @@ const Login = () => {
    const [login, { isLoading }] = useLoginMutation() //destructuring "login" mutation and "isLoading" state(which can be used to show loader)
    const dispatch = useDispatch()
 
-   useEffect(() => {
+   useEffect(() => { // used to focus the userRef on component mount
       userRef.current.focus()
    }, [])
 
@@ -50,7 +50,7 @@ const Login = () => {
          else{
             setErrMsg('Login Failed')
          }
-         errRef.current.focus()
+         errRef.current.focus() // focus the error Ref if there is an error
       }
    }
 

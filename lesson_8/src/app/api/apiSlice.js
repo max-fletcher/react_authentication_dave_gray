@@ -9,10 +9,12 @@ import { setCredentials, logOut } from '../../features/auth/authSlice' // import
 const baseQuery = fetchBaseQuery({
    baseUrl: 'http://localhost:3500',
    credentials: 'include', //this is to send all the cookies that are saved to browser along with every request
-   prepareHeaders: (headers, { getState }) => { // destructured getState
-      const token = getState().auth.token // get token from state if it exists. If used with authSlice, will have token, else it will not do anything
+   // getState makes the reducer's states from store available to baseQuery. It destructured to get state/data directly.
+   prepareHeaders: (headers, { getState }) => {
+      // get token from 'store' if 'auth' reducer state/data inside 'store' has 'token' nested in it.
+      const token = getState().auth.token
       if(token){
-         headers.set("authorization", `Bearer ${token}`) // set token as authorization - Bearer token in header. Works only if token exists
+         headers.set("authorization", `Bearer ${token}`) // set token as authorization - Bearer token in header. Works only if token exists.
       }
       return headers
    }
@@ -32,13 +34,13 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
          const user = api.getState().auth.user // just get the user name/data from state and store it in a variable. Has nothing to do with the API call
          // store the new token along with the user name/data
          api.dispatch(setCredentials({...refreshResult.data, user}))
-         // retry the original query with new access token
+         // retry the the original query with new access token and store it in result variable
          result = await baseQuery(args, api, extraOptions)
       }
-   }
-   else{
-      //so if token has expired but the API call to "/refresh" also fails(not 403 status code), then run/dispatch logOut()
-      api.dispatch(logOut())
+      else{
+         //so if token has expired but the API call to "/refresh" also fails(not 403 status code), then run/dispatch logOut()
+         api.dispatch(logOut())
+      }
    }
 
    return result // return result of original API call if token was successfully refreshed

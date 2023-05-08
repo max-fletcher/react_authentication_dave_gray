@@ -18,13 +18,13 @@ const authSlice = createSlice({
    }
 })
 
-// exporting the reducers
+// exporting the reducer actions/function. These can be used inside 'useDispatch' to call/execute these.
 export const { setCredentials, logOut } = authSlice.actions
 
 // exporting the slice. It will be imported with the name "authReducer"(since this is the default export so it can be named whatever you import it as)
-// in store.js.
+// in store.js and registered there so it can be made available globally using provider in index.js(main.js in vite)
 export default authSlice.reducer
 
-// Custom selectors
+// Custom selectors. Remember that selectors are used to show reducer states/data while reducer actions/functions are used to modify the state/data of reducers.
 export const selectCurrentUser = (state) => state.auth.user
 export const selectCurrentToken = (state) => state.auth.token
