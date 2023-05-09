@@ -38,7 +38,7 @@ const Login = () => {
          navigate('/welcome') // navigate to "/welcome" url
       } catch (error) {
          console.log(error)
-         if (error?.originalStatus){
+         if (!error?.originalStatus){
             setErrMsg('No Server Response')
          }
          else if(error.originalStatus === 400){
