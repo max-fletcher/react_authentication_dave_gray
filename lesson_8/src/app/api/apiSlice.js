@@ -20,8 +20,8 @@ const baseQuery = fetchBaseQuery({
    }
 })
 
-// this is a wrapper for the base query, which will get a new "accessToken" if the old one has expired and "refreshToken" is still valid
-// works the same way as axios interceptors in the previous chapters
+// this is a wrapper for the base query, which will fire a preflight request & get a new "accessToken" if the old one has expired
+// and "refreshToken" is still valid works the same way as axios interceptors in the previous chapters
 const baseQueryWithReauth = async (args, api, extraOptions) => {
    let result = await baseQuery(args, api, extraOptions)
 
